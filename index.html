@@ -210,7 +210,15 @@ function renderChunk(){
   cursor=end;
   // push new ad slots
   try{
-    list.querySelectorAll('.ad-mob ins:not([data-ad-status])').forEach(()=>(adsbygoogle=window.adsbygoogle||[]).push({}));
+    //list.querySelectorAll('.ad-mob ins:not([data-ad-status])').forEach(()=>(adsbygoogle=window.adsbygoogle||[]).push({}));
+	list.querySelectorAll('.ad-mob ins').forEach(el=>{
+	  if(el.dataset.loaded) return;
+
+	  try{
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		el.dataset.loaded = "1";
+	  }catch(e){}
+	});
   }catch(e){}
   // schedule next chunk
   if(cursor<groups.length){
