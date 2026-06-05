@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://quge5.com/88/tag.min.js" data-zone="246475" async data-cfasync="false"></script>
 <meta charset="UTF-8">
 <link rel="icon" type="image/png" href="CollectionLvl.png">
 <link rel="apple-touch-icon" href="CollectionLvlIcon.png">
@@ -9,7 +10,6 @@
 <meta name="apple-mobile-web-app-title" content="CR Collection Level">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>CR Collection Level</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2570657624074859" crossorigin="anonymous"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,8 +38,22 @@ body{
   -webkit-appearance:none;appearance:none;
 }
 .lvl-input::-webkit-outer-spin-button,.lvl-input::-webkit-inner-spin-button{-webkit-appearance:none}
-.layout{display:flex;justify-content:center;align-items:flex-start;max-width:1200px;margin:0 auto}
-.main{width:100%;max-width:520px;padding:10px}
+.layout{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  width:100%;
+  max-width:1800px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.main{
+  width:100%;
+  max-width:none;
+  flex:1;
+  padding:10px;
+}
 .ad-side{display:none;width:170px;flex-shrink:0;padding:8px 6px;position:sticky;top:90px}
 @media(min-width:900px){.ad-side{display:block}}
 .rg{
@@ -89,14 +103,6 @@ body{
 </style>
 </head>
 <body>
-
-<div class="ad-top">
-  <ins class="adsbygoogle" style="display:block;min-height:50px"
-    data-ad-client="ca-pub-2570657624074859" data-ad-slot="5840207549"
-    data-ad-format="auto" data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-</div>
-
 <div class="hdr">
   <div class="lvl-row">
     <img src="CollectionLvl.png" class="hdr-icon" alt="">
@@ -107,17 +113,7 @@ body{
 
 <div id="loading">⚙</div>
 <div class="layout" id="layout" style="display:none">
-  <div class="ad-side">
-    <ins class="adsbygoogle" style="display:block;width:160px;min-height:600px"
-      data-ad-client="ca-pub-2570657624074859" data-ad-slot="3979341289"></ins>
-    <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-  </div>
   <div class="main" id="list"></div>
-  <div class="ad-side">
-    <ins class="adsbygoogle" style="display:block;width:160px;min-height:600px"
-      data-ad-client="ca-pub-2570657624074859" data-ad-slot="9590760619"></ins>
-    <script>(adsbygoogle=window.adsbygoogle||[]).push({})</script>
-  </div>
 </div>
 
 <div class="bb"><div class="bbg" id="bbg"></div></div>
@@ -176,20 +172,6 @@ function mkGroup(items, nxi){
   return g;
 }
 
-function mkMobAd(){
-  const d=document.createElement('div');
-  d.className='ad-mob';
-  const ins=document.createElement('ins');
-  ins.className='adsbygoogle';
-  ins.style.cssText='display:block;min-height:90px';
-  ins.dataset.adClient='ca-pub-2570657624074859';
-  ins.dataset.adSlot='1900962538';
-  ins.dataset.adFormat='fluid';
-  ins.dataset.fullWidthResponsive='true';
-  d.appendChild(ins);
-  return d;
-}
-
 let cursor=0;
 const CHUNK=6; // groups per idle chunk
 let renderScheduled=false;
@@ -202,24 +184,10 @@ function renderChunk(){
   const frag=document.createDocumentFragment();
   for(let i=cursor;i<end;i++){
     frag.appendChild(mkGroup(groups[i], nxi));
-    if((i+1)%3===0){
-      frag.appendChild(mkMobAd());
-    }
   }
   list.appendChild(frag);
   cursor=end;
-  // push new ad slots
-  try{
-    //list.querySelectorAll('.ad-mob ins:not([data-ad-status])').forEach(()=>(adsbygoogle=window.adsbygoogle||[]).push({}));
-	list.querySelectorAll('.ad-mob ins').forEach(el=>{
-	  if(el.dataset.loaded) return;
 
-	  try{
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		el.dataset.loaded = "1";
-	  }catch(e){}
-	});
-  }catch(e){}
   // schedule next chunk
   if(cursor<groups.length){
     scheduleChunk();
